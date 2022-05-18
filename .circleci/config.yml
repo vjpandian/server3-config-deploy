@@ -45,7 +45,7 @@ jobs:
       - run:
           name: List Server3 Pods
           command: |
-              kubectl get pods -n vijay3x
+              kubectl get ns
  
 workflows:
   say-hello-workflow:
