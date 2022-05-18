@@ -47,7 +47,8 @@ jobs:
           name: List Server3 Pods
           command: |
               aws sts get-caller-identity
-              kubectl get ns
+              kubectl config current-context
+              kubectl config get-contexts
  
 workflows:
   say-hello-workflow:
