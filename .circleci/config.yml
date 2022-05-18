@@ -41,6 +41,7 @@ jobs:
           name: Set kubectl context
           command: | 
               eksctl utils write-kubeconfig --cluster=vijay-cluster-1
+              aws eks update-kubeconfig --name vijay-cluster-1 --region ca-central-1
       - run:
           name: List Server3 Pods
           command: |
