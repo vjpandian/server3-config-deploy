@@ -24,6 +24,7 @@ jobs:
           name: Install KOTS
           command: curl https://kots.io/install | bash
       - run: kubectl kots version
+      - run: aws configure
 
 workflows:
   say-hello-workflow:
