@@ -45,7 +45,7 @@ jobs:
       - run:
           name: List Server3 Pods
           command: |
-              kubectl get ns
+              aws sts get-caller-identity
  
 workflows:
   say-hello-workflow:
