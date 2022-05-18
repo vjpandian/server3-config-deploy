@@ -1,0 +1,48 @@
+version: 2.1
+jobs:
+  say-hello:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Install eksctl
+          command: |
+             curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+             sudo mv /tmp/eksctl /usr/local/bin
+      - run: 
+          name: Install kubectl
+          command: |
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+            echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+            sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+            mkdir -p ~/.local/bin
+            mv ./kubectl ~/.local/bin/kubectl
+            kubectl version --client
+      - run:
+          name: Install KOTS
+          command: curl https://kots.io/install | bash
+      - run: kubectl kots version
+      - run: 
+          name: Install awscli
+          command: |
+             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+             unzip awscliv2.zip
+             sudo ./aws/install
+      - run: 
+          name: Configure awscli
+          command: |
+             aws configure set aws_access_key_id $AWS_ACCESS_KEY
+             aws configure set aws_secret_access_key $AWS_SECRET_KEY
+             aws configure set default.region ca-central-1
+             aws eks describe-cluster --name vijay-cluster-1
+      - run: 
+          name: Set kubectl context
+          command: | 
+              eksctl utils write-kubeconfig --cluster=vijay-cluster-1
+ 
+workflows:
+  say-hello-workflow:
+    jobs:
+      - say-hello
