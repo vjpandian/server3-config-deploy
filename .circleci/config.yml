@@ -5,6 +5,11 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - run:
+          name: Install eksctl
+          command: |
+             curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+             sudo mv /tmp/eksctl /usr/local/bin
       - run: 
           name: Install kubectl
           command: |
