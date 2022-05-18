@@ -41,7 +41,7 @@ jobs:
           name: Set kubectl context
           command: | 
               eksctl utils write-kubeconfig --cluster=vijay-cluster-1
-              aws eks update-kubeconfig --name vijay-cluster-1 --region ca-central-1 --role-arn $AWS_ROLE_ARN
+              aws eks update-kubeconfig --name vijay-cluster-1 --region ca-central-1 --role-arn arn:aws:iam::660990364978:role/eksctl-vijay-cluster-1-cluster-ServiceRole-1KER9ZNQ5OBTT
               kubectl config set-context --current --namespace=vijay3x
       - run:
           name: List Server3 Pods
