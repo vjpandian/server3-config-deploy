@@ -41,6 +41,10 @@ jobs:
           name: Set kubectl context
           command: | 
               eksctl utils write-kubeconfig --cluster=vijay-cluster-1
+      - run:
+          name: List Server3 Pods
+          command: |
+              kubectl get pods -n vijay3x
  
 workflows:
   say-hello-workflow:
