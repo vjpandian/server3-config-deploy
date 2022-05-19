@@ -33,8 +33,8 @@ jobs:
       - run: 
           name: Configure awscli
           command: |
-             aws configure set aws_access_key_id $AWS_VP_KEY
-             aws configure set aws_secret_access_key $AWS_VP_SECRET
+             aws configure set aws_access_key_id $AWS_ACCESS_KEY
+             aws configure set aws_secret_access_key $AWS_SECRET_KEY
              aws configure set default.region ca-central-1
              aws eks describe-cluster --name vijay-cluster-1
       - run: 
@@ -42,7 +42,9 @@ jobs:
           command: | 
               eksctl utils write-kubeconfig --cluster=vijay-cluster-1
               aws eks update-kubeconfig --name vijay-cluster-1 --region ca-central-1 --role-arn arn:aws:iam::660990364978:role/eksctl-vijay-cluster-1-cluster-ServiceRole-1KER9ZNQ5OBTT
-              kubectl config set-context --current --name=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io
+              #kubectl config set-context --current --name=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io
+              kubectl config set-context cci3x --user=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io --namespace=vijay3x --cluster=vijay-cluster-1.ca-central-1.eksctl.io
+cci-
       - run:
           name: List Server3 Pods
           command: |
