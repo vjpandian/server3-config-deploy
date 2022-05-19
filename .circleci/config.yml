@@ -49,6 +49,7 @@ jobs:
               aws sts get-caller-identity
               kubectl config current-context
               kubectl config get-contexts
+              kubectl get ns
  
 workflows:
   say-hello-workflow:
