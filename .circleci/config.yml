@@ -41,16 +41,16 @@ jobs:
           name: Set kubectl context
           command: | 
               eksctl utils write-kubeconfig --cluster=vijay-cluster-1
-              aws eks update-kubeconfig --name vijay-cluster-1 --region ca-central-1 --role-arn arn:aws:iam::660990364978:role/eksctl-vijay-cluster-1-cluster-ServiceRole-1KER9ZNQ5OBTT
-              #kubectl config set-context --current --name=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io
-              kubectl config set-context cci3x --user=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io --namespace=vijay3x --cluster=vijay-cluster-1.ca-central-1.eksctl.io
+              aws eks update-kubeconfig --name vijay-cluster-1
+              # kubectl config set-context --current --name=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io
+              # kubectl config set-context cci3x --user=cci-deployment-user@vijay-cluster-1.ca-central-1.eksctl.io --namespace=vijay3x --cluster=vijay-cluster-1.ca-central-1.eksctl.io
 
       - run:
           name: List Server3 Pods
           command: |
-              aws sts get-caller-identity
-              kubectl config current-context
-              kubectl config get-contexts
+              # aws sts get-caller-identity
+              # kubectl config current-context
+              # kubectl config get-contexts
               kubectl get ns
  
 workflows:
